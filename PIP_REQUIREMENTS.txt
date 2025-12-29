@@ -1,0 +1,56 @@
+# ML MODELS - PIP INSTALLATION REQUIREMENTS
+
+## Core Dependencies (Required for all models)
+pip install pandas numpy scikit-learn joblib
+
+## Specific Model Requirements
+
+### Random Forest (ML_Model_Original)
+# No additional packages needed - included in scikit-learn
+
+### XGBoost (ML_Model_Xgboost)
+pip install xgboost
+
+### LightGBM (ML_model_LightGBM) - RECOMMENDED
+pip install lightgbm
+
+### CatBoost (ML_model_CatBoost) - BEST FOR CATEGORICAL DATA
+pip install catboost
+
+### AutoML (ML_model_AutoML) - MAXIMUM ACCURACY
+pip install autogluon
+
+## INSTALL ALL AT ONCE (Recommended)
+pip install pandas numpy scikit-learn joblib xgboost lightgbm catboost autogluon
+
+## Troubleshooting
+
+### If AutoGluon fails
+pip install --upgrade pip
+pip install "autogluon.tabular[all]"
+
+### For GPU support (optional)
+# XGBoost GPU
+pip install xgboost[gpu]
+
+# LightGBM GPU
+pip install lightgbm --install-option=--gpu
+
+# CatBoost GPU (works out of the box if CUDA available)
+pip install catboost
+
+## Verification
+After installation, verify with:
+python -c "import pandas, numpy, sklearn, joblib, xgboost, lightgbm, catboost, autogluon; print('All packages installed successfully!')"
+
+## Minimal Installation (for testing one model)
+# If you want to test just one model:
+
+# For LightGBM only:
+pip install pandas numpy scikit-learn joblib lightgbm
+
+# For CatBoost only:
+pip install pandas numpy scikit-learn joblib catboost
+
+# For AutoML only:
+pip install pandas autogluon

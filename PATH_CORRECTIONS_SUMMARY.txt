@@ -1,0 +1,114 @@
+=================================================================================
+PATH CORRECTIONS SUMMARY - ML MODELS
+=================================================================================
+
+## ✅ PATHS ALREADY CORRECTED:
+
+### 1. LightGBM - train_models.py
+- FIXED: Line 22 - Changed from 'data/soil_crop_dataset.csv' to 'data/raw/combined_dataset.csv'
+- FIXED: Line 48 - Updated error message to match new path
+
+### 2. AutoML - train_models.py  
+- FIXED: Line 14 - Changed from 'data/soil_crop_dataset.csv' to 'data/raw/combined_dataset.csv'
+
+=================================================================================
+
+## ⚠️  CRITICAL ISSUE: COLUMN NAME MISMATCH
+
+Your CSV files use DIFFERENT column names than your Python scripts expect!
+
+### CSV File Columns (from combined_dataset.csv):
+Year, Region, Season, Crop, N, P, K, pH, Temperature, Humidity, Rainfall, 
+SoilType, Irrigation, Moisture, CropHealthIndex, CropHealthLabel
+
+### Python Scripts Expect:
+Nitrogen, Phosphorus, Potassium, Soil_Moisture (instead of just Moisture)
+
+=================================================================================
+
+## 🔧 FILES THAT NEED COLUMN NAME FIXES:
+
+### Files that reference incorrect column names:
+
+1. **ML_model_LightGBM/train_models.py**
+   - Lines 72, 104, 105, 106, 115, 121: 
+     Change 'Nitrogen', 'Phosphorus', 'Potassium' → 'N', 'P', 'K'
+   - Line 118: Change 'Soil_Moisture' → 'Moisture'
+
+2. **ML_model_AutoML/train_models.py**
+   - General approach used (AutoGluon handles columns automatically)
+   - Should work as-is since it uses the actual CSV structure
+
+=================================================================================
+
+## ✅ PATHS THAT ARE CORRECT:
+
+All other training scripts use correct paths:
+
+### Regional Models (all folders):
+- ✅ `data/processed/{region_name.lower()}_data.csv` - CORRECT
+  - Uses: punjab_data.csv, haryana_data.csv, rajasthan_data.csv
+
+### Seasonal Models (all folders):
+- ✅ `data/processed/general_data.csv` - CORRECT
+
+### Model Save Paths (all folders):
+- ✅ `ML models/*.pkl` - CORRECT
+  - All models save to their respective `ML models/` subdirectories
+
+=================================================================================
+
+## 📂 ACTUAL DATA FILE STRUCTURE:
+
+Each model folder has:
+```
+data/
+├── raw/
+│   └── combined_dataset.csv         ← Main dataset
+└── processed/
+    ├── general_data.csv             ← General/seasonal data
+    ├── punjab_data.csv              ← Punjab regional data
+    ├── haryana_data.csv             ← Haryana regional data
+    └── rajasthan_data.csv           ← Rajasthan regional data
+```
+
+=================================================================================
+
+## 🎯 ACTION REQUIRED:
+
+### Option 1: Fix Column Names in Scripts (RECOMMENDED)
+Change column references in train_models.py scripts from:
+- 'Nitrogen' → 'N'
+- 'Phosphorus' → 'P'  
+- 'Potassium' → 'K'
+- 'Soil_Moisture' → 'Moisture'
+
+### Option 2: Rename CSV Columns
+Modify all CSV files to use Nitrogen, Phosphorus, Potassium, Soil_Moisture
+
+=================================================================================
+
+## ✅ PATH VERIFICATION CHECKLIST:
+
+- [x] LightGBM/train_models.py - Data file path fixed
+- [x] AutoML/train_models.py - Data file path fixed  
+- [x] LightGBM/train_regional_models.py - Path already correct
+- [x] LightGBM/train_improved_models.py - Path already correct
+- [x] LightGBM/train_seasonal_specialized.py - Path already correct
+- [x] LightGBM/final_three_model_system.py - Paths already correct
+- [x] CatBoost/train_improved_models.py - Path already correct
+- [ ] Column names need fixing in train_models.py files
+
+=================================================================================
+
+## 📋 SUMMARY:
+
+✅ **All file paths are now CORRECT**
+❌ **Column names still need fixing in train_models.py (Option 1 recommended)**
+
+The basic training scripts (train_models.py) won't work until column names are fixed.
+The regional, improved, and seasonal models should work correctly as-is.
+
+=================================================================================
+
+Last Updated: 2025-12-27
